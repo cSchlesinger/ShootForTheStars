@@ -1,5 +1,9 @@
 /*----------------------------------------------
-Programmer: Alberto Bobadilla (labigm@gmail.com)
+Programmer: Beau Marwaha - bcm2463@rit.edu,
+			Catherine Nemechek - crn4802@rit.edu,
+			Cameron Schlesinger - cms1944@rit.edu,
+			Tim Carter - txc1321@rit.edu,
+			Alberto Bobadilla - labigm@rit.ed
 Date: 2017/06
 ----------------------------------------------*/
 #ifndef __APPLICATIONCLASS_H_
@@ -19,7 +23,7 @@ class Application
 {
 	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
 private:
-	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //programmer
+	String m_sProgrammer = "Beau Marwaha - bcm2463@rit.edu\nCatherine Nemechek - crn4802@rit.edu\nCameron Schlesinger - cms1944@rit.edu\nTim Carter - txc1321@rit.edu\nAlberto Bobadilla - labigm@rit.edu"; //programmer
 
 	static ImGuiObject gui; //GUI object
 	bool m_bGUI_Main = true; //show Main GUI window?
