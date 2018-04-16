@@ -60,6 +60,8 @@ private:
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
 
+	int bulletCount = 0; //The count of bullets currently in the level
+
 public:
 #pragma region Constructor / Run / Destructor
 	/*
@@ -327,6 +329,14 @@ private:
 	OUTPUT: ---
 	*/
 	Application& operator=(Application const& input);
+#pragma endregion
+#pragma region Bullet Handling
+	/*
+	USAGE: Creates a new Bullet at the camera's current position
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void ShootBullet(void);
 #pragma endregion
 };
 

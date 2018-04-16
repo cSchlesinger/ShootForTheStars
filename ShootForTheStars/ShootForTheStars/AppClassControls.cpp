@@ -40,6 +40,12 @@ void Application::ProcessMouseReleased(sf::Event a_event)
 	default: break;
 	case sf::Mouse::Button::Left:
 		gui.m_bMousePressed[0] = false;
+
+		#pragma region Arrow Shooting
+		// On Left Click An arrow should be shot out from the player
+		ShootBullet();
+		#pragma endregion
+
 		break;
 	case sf::Mouse::Button::Middle:
 		gui.m_bMousePressed[1] = false;
@@ -97,20 +103,20 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		m_bRunning = false;
 		break;
 	case sf::Keyboard::F1:
-		m_pCameraMngr->SetCameraMode(CAM_PERSP);
+		//m_pCameraMngr->SetCameraMode(CAM_PERSP);
 		break;
 	case sf::Keyboard::F2:
-		m_pCameraMngr->SetCameraMode(CAM_ORTHO_Z);
+		//m_pCameraMngr->SetCameraMode(CAM_ORTHO_Z);
 		break;
 	case sf::Keyboard::F3:
-		m_pCameraMngr->SetCameraMode(CAM_ORTHO_Y);
+		//m_pCameraMngr->SetCameraMode(CAM_ORTHO_Y);
 		break;
 	case sf::Keyboard::F4:
-		m_pCameraMngr->SetCameraMode(CAM_ORTHO_X);
+		//m_pCameraMngr->SetCameraMode(CAM_ORTHO_X);
 		break;
 	case sf::Keyboard::F:
-		bFPSControl = !bFPSControl;
-		m_pCameraMngr->SetFPS(bFPSControl);
+		//bFPSControl = !bFPSControl;
+		//m_pCameraMngr->SetFPS(bFPSControl);
 		break;
 	case sf::Keyboard::PageUp:
 		break;
@@ -405,34 +411,12 @@ void Application::ProcessKeyboard(void)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		m_pCameraMngr->MoveSideways(m_fMovementSpeed * fMultiplier);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	//For this project the player should not be able to move vertically
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		m_pCameraMngr->MoveVertical(-m_fMovementSpeed * fMultiplier);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);
-#pragma endregion
-
-#pragma region Character Position
-	float fDelta = m_pSystem->GetDeltaTime(0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		m_pEntityMngr->ApplyForce(vector3(-2.0f * fDelta, 0.0f, 0.0f), "Steve");
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		m_pEntityMngr->ApplyForce(vector3(2.0f * fDelta, 0.0f, 0.0f), "Steve");
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		m_pEntityMngr->ApplyForce(vector3(0.0f, 0.0f, -2.0f * fDelta), "Steve");
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		m_pEntityMngr->ApplyForce(vector3(0.0f, 0.0f, 2.0f * fDelta), "Steve");
-	}
+		m_pCameraMngr->MoveVertical(m_fMovementSpeed * fMultiplier);*/
 #pragma endregion
 }
 //Joystick
