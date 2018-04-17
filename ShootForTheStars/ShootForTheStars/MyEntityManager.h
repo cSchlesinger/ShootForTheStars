@@ -294,7 +294,23 @@ public:
 	-	uint a_uIndex = -1 -> ID of the MyEntity if < 0 last object added
 	OUTPUT: ---
 	*/
-	void SetMass(float a_v3Position, uint a_uIndex = -1);
+	void SetMass(float a_fMass, uint a_uIndex = -1);
+	/*
+	USAGE: Sets the friction of the specified entity
+	ARGUMENTS:
+	-	float a_fFriction -> friction to set
+	-	String a_sUniqueID -> ID of the MyEntity
+	OUTPUT: ---
+	*/
+	void SetFriction(float a_fFriction, String a_sUniqueID);
+	/*
+	USAGE: Sets the friction of the specified entity
+	ARGUMENTS:
+	-	float a_fFriction -> friction to set
+	-	uint a_uIndex = -1 -> ID of the MyEntity if < 0 last object added
+	OUTPUT: ---
+	*/
+	void SetFriction(float a_fFriction, uint a_uIndex = -1);
 	/*
 	USAGE: Sets the using physics solver flag for the specified object
 	ARGUMENTS:

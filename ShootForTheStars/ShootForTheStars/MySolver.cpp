@@ -48,6 +48,9 @@ vector3 MySolver::GetVelocity(void) { return m_v3Velocity; }
 void MySolver::SetMass(float a_fMass) { m_fMass = a_fMass; }
 float MySolver::GetMass(void) { return m_fMass; }
 
+void MySolver::SetFriction(float a_fFriction) { m_fFriction = a_fFriction; }
+float MySolver::GetFriction(void) { return m_fFriction; }
+
 //Methods
 void MySolver::ApplyFriction(float a_fFriction)
 {
@@ -94,7 +97,7 @@ void MySolver::Update(void)
 	float fMaxVelocity = 5.0f;
 	m_v3Velocity = CalculateMaxVelocity(m_v3Velocity, fMaxVelocity);
 
-	ApplyFriction(0.1f);
+	ApplyFriction(m_fFriction);
 	m_v3Velocity = RoundSmallVelocity(m_v3Velocity, 0.028f);
 
 	m_v3Position += m_v3Velocity;

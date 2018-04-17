@@ -97,7 +97,7 @@ void Application::Release(void)
 void Application::ShootBullet(void)
 {
 	//Create a new Bullet Entity
-	m_pEntityMngr->AddEntity("Sorted\\Pawn.obj", "Bullet_" + std::to_string(bulletCount));
+	m_pEntityMngr->AddEntity("Sorted\\PolyOut.obj", "Bullet_" + std::to_string(bulletCount));
 
 	//Move the bullet to the camera's current position
 	vector3 v3Position = m_pCameraMngr->GetPosition();
@@ -109,9 +109,10 @@ void Application::ShootBullet(void)
 	//Have the Bullet use a physics solver
 	m_pEntityMngr->UsePhysicsSolver();
 	m_pEntityMngr->SetMass(1);
+	m_pEntityMngr->SetFriction(0.01f);
 
 	//Have the bullet shoot out away from the player
-	vector3 force = glm::normalize(m_pCameraMngr->GetForward()) * 100.0f;
+	vector3 force = glm::normalize(m_pCameraMngr->GetForward()) * 10.0f;
 	m_pEntityMngr->GetEntity()->GetEntity("Bullet_" + std::to_string(bulletCount))->GetSolver()->ApplyForce(force);
 
 	bulletCount++;

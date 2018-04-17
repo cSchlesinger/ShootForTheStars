@@ -256,6 +256,19 @@ public:
 	float GetMass(void);
 
 	/*
+	USAGE: Sets the friction of the solver
+	ARGUMENTS: float a_fFriction -> friction to set
+	OUTPUT: ---
+	*/
+	void SetFriction(float a_fFriction);
+	/*
+	USAGE: Gets friction of the solver
+	ARGUMENTS: ---
+	OUTPUT: friction of the object
+	*/
+	float GetFriction(void);
+
+	/*
 	USAGE: Updates the MyEntity
 	ARGUMENTS: ---
 	OUTPUT: ---

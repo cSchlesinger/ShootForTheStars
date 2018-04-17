@@ -45,6 +45,20 @@ float Simplex::MyEntity::GetMass(void)
 		return m_pSolver->GetMass();
 	return 1.0f;
 }
+
+void Simplex::MyEntity::SetFriction(float a_fFriction) 
+{ 
+	if (m_pSolver) 
+		m_pSolver->SetFriction(a_fFriction);
+}
+
+float Simplex::MyEntity::GetFriction(void)
+{
+	if (m_pSolver != nullptr)
+		return m_pSolver->GetFriction();
+	return 0.1f;
+}
+
 //  MyEntity
 void Simplex::MyEntity::Init(void)
 {
