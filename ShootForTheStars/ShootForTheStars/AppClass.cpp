@@ -11,12 +11,16 @@ void Application::InitVariables(void)
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 
 	// Create a floor under the player
-	m_pEntityMngr->AddEntity("Sorted\\1x1Plane.obj", "Floor");
-	matrix4 m4Position = glm::translate(IDENTITY_M4, vector3(0, -2.1f, 0)) * ToMatrix4(glm::angleAxis(-90.0f, AXIS_X)) * glm::scale(vector3(1000.0f, 1000.0f, 1.0f));
-	m_pEntityMngr->SetModelMatrix(m4Position);
+	matrix4 m4Scale = glm::translate(IDENTITY_M4, vector3(0, -2.1f, 0)) * ToMatrix4(glm::angleAxis(-90.0f, AXIS_X)) * glm::scale(vector3(1000.0f, 1000.0f, 1.0f));
+	m_pMeshMngr->AddPlaneToRenderList(m4Scale, m_v3FloorColor);
 
+#ifdef DEBUG
+	uint uInstances = 400;
+#else
+	uint uInstances = 1000;
+#endif
 	// Generate Stars in a random half sphere around the player
-	for (int i = 0; i < 200; i++)
+	for (uint i = 0; i < uInstances; i++)
 	{
 		m_pEntityMngr->AddEntity("Planets\\00_Sun.obj", "Star_" + std::to_string(i));
 
@@ -41,6 +45,14 @@ void Application::InitVariables(void)
 		//m_pEntityMngr->UsePhysicsSolver();
 		//m_pEntityMngr->SetMass(i+1);
 	}
+
+	// Initial set up for octree
+	m_uOctantLevels = 3; // Found to be the ideal octant depth level
+	m_pEntityMngr->GenerateOctants(m_uOctantLevels);
+	m_pEntityMngr->UpdateDimensionSetAll();
+
+	// Initial update entity manager call
+	m_pEntityMngr->Update();
 }
 void Application::Update(void)
 {
@@ -53,14 +65,20 @@ void Application::Update(void)
 	//Is the first person camera active?
 	CameraRotation();
 
+	//Reconstructing the Octree each tenth of a second
+	static uint nClock = m_pSystem->GenClock();
+	static bool bStarted = false;
+	if (m_pSystem->IsTimerDone(nClock) || !bStarted)
+	{
+		bStarted = true;
+		m_pSystem->StartTimerOnClock(0.1, nClock);
+
+		// Clear current octant associations, regenerate octants, and then regenerate octant associations
+		m_pEntityMngr->UpdateOctantsAndDimensions(m_uOctantLevels);
+	}
+
 	//Update Entity Manager
 	m_pEntityMngr->Update();
-
-	//Update Bullets
-
-
-	//Set the model matrix for the main object
-	//m_pEntityMngr->SetModelMatrix(m_m4Steve, "Steve");
 
 	//Add objects to render list
 	m_pEntityMngr->AddEntityToRenderList(-1, true);
@@ -70,6 +88,13 @@ void Application::Display(void)
 {
 	// Clear the screen
 	ClearScreen();
+
+	// Display Current Octree
+	m_pEntityMngr->DisplayOctree(m_pMeshMngr, m_uOctantID);
+
+	// Create a floor under the player
+	matrix4 m4Scale = glm::translate(IDENTITY_M4, vector3(0, -2.1f, 0)) * ToMatrix4(glm::angleAxis(-90.0f, AXIS_X)) * glm::scale(vector3(1000.0f, 1000.0f, 1.0f));
+	m_pMeshMngr->AddPlaneToRenderList(m4Scale, m_v3FloorColor);
 
 	// draw a skybox
 	m_pMeshMngr->AddSkyboxToRenderList();

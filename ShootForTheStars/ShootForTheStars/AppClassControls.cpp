@@ -77,10 +77,10 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	switch (a_event.key.code)
 	{
 	default: break;
-	case sf::Keyboard::Space:
+	/*case sf::Keyboard::Space:
 		m_sound.play();
 		m_pEntityMngr->ApplyForce(vector3(0.0f, 1.0f, 0.0f), "Steve");
-		break;
+		break;*/
 	case sf::Keyboard::LShift:
 	case sf::Keyboard::RShift:
 		m_bModifier = true;
@@ -118,17 +118,51 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		//bFPSControl = !bFPSControl;
 		//m_pCameraMngr->SetFPS(bFPSControl);
 		break;
-	case sf::Keyboard::PageUp:
-		break;
-	case sf::Keyboard::PageDown:
-		break;
-	case sf::Keyboard::Add:
-		break;
-	case sf::Keyboard::Subtract:
-		break;
 	case sf::Keyboard::LShift:
+		break;
 	case sf::Keyboard::RShift:
 		m_bModifier = false;
+		break;
+	case sf::Keyboard::PageUp:
+		// Increment the octant to display number
+		++m_uOctantID;
+
+		// Check to see if the octant to display change goes out of bounds, if so loop back to displaying all octants
+		if (m_uOctantID >= m_pEntityMngr->GetOctantCount())
+			m_uOctantID = -1;
+
+		break;
+	case sf::Keyboard::PageDown:
+		// Decrement the octant to display number
+		--m_uOctantID;
+
+		// Check to see if the octant to display change goes out of bounds, if so loop back to displaying all octants
+		if (m_uOctantID >= m_pEntityMngr->GetOctantCount())
+			m_uOctantID = -1;
+
+		break;
+	case sf::Keyboard::Add:
+		// Cap max octant depth level at 5
+		if (m_uOctantLevels < 5)
+		{
+			// Increment the octant depth level
+			++m_uOctantLevels;
+
+			// Clear current octant associations, regenerate octants, and then regenerate octant associations
+			m_pEntityMngr->UpdateOctantsAndDimensions(m_uOctantLevels);
+		}
+		break;
+	case sf::Keyboard::Subtract:
+		// Cap min octant depth level at 0
+		if (m_uOctantLevels > 0)
+		{
+			// Decrement the octant depth level
+			--m_uOctantLevels;
+
+			// Clear current octant associations, regenerate octants, and then regenerate octant associations
+			m_pEntityMngr->UpdateOctantsAndDimensions(m_uOctantLevels);
+		}
+		break;
 	}
 
 	//gui

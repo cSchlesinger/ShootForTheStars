@@ -22,6 +22,10 @@ namespace Simplex
 class Application
 {
 	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
+	uint m_uOctantID = -1; // Index of Octant to display
+	uint m_uObjects = 0; // Number of objects in the scene
+	uint m_uOctantLevels = 0; // Number of levels in the octree
+
 private:
 	String m_sProgrammer = "Beau Marwaha - bcm2463@rit.edu\nCatherine Nemechek - crn4802@rit.edu\nCameron Schlesinger - cms1944@rit.edu\nTim Carter - txc1321@rit.edu\nAlberto Bobadilla - labigm@rit.edu"; //programmer
 
@@ -60,7 +64,8 @@ private:
 	sf::Sound m_sound; //sound effect
 	sf::Music m_soundBGM; //background music
 
-	int bulletCount = 0; //The count of bullets currently in the level
+	int bulletCount = 0; // The count of bullets currently in the level
+	vector3 m_v3FloorColor = vector3(222 / 256.0f, 184 / 256.0f, 135 / 256.0f); // RGB color value of the floor
 
 public:
 #pragma region Constructor / Run / Destructor

@@ -18,6 +18,17 @@ class MyEntityManager
 	PEntity* m_mEntityArray = nullptr; //array of MyEntity pointers
 	static MyEntityManager* m_pInstance; // Singleton pointer
 public:
+	// Octant struct definition
+	struct Octant
+	{
+		uint m_uOctantID; // Octant ID number
+		uint m_uOctantLevel; // Octant Depth Level
+		vector3 m_v3Center = vector3(0.0f); // Center of the Octant
+		vector3 m_v3Min = vector3(0.0f); // Minimum point of the octant
+		vector3 m_v3Max = vector3(0.0f); // Maximum point of the octant
+		bool m_bIsEndNode; // Indicates wether this is an end node in the octree
+	};
+
 	/*
 	Usage: Gets the singleton pointer
 	Arguments: ---
@@ -246,6 +257,70 @@ public:
 	OUTPUT: MyEntity count
 	*/
 	uint GetEntityCount(void);
+	/*
+	USAGE: Will return the count of octants in the system
+	ARGUMENTS: ---
+	OUTPUT: Octant count
+	*/
+	uint GetOctantCount(void);
+	/*
+	USAGE: Will return the vector of octants
+	ARGUMENTS: ---
+	OUTPUT: MyEntity count
+	*/
+	std::vector<Octant> GetOctants(void);
+	/*
+	USAGE: will update all dimensions from all entities
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void UpdateDimensionSetAll(void);
+	/*
+	USAGE: will update all dimensions from entity
+	ARGUMENTS: uint a_uIndex -> index (from the list) of the entity queried if < 0 will use the last one
+	OUTPUT: ---
+	*/
+	void UpdateDimensionSet(uint a_uIndex);
+	/*
+	USAGE: will update all dimensions from entity
+	ARGUMENTS: String a_sUniqueID -> unique identifier of the entity queried
+	OUTPUT: ---
+	*/
+	void UpdateDimensionSet(String a_sUniqueID);
+	/*
+	USAGE: will generate octants based on a provided level depth count
+	ARGUMENTS: uint a_uOctantLevels -> Count of the maximum number of octant depth levels to generate
+	OUTPUT: ---
+	*/
+	void GenerateOctants(uint a_uOctantLevels);
+	/*
+	USAGE: will generate child octants based on a provided parent octant info
+	ARGUMENTS: Octant a_oParent -> Parent Octant
+	OUTPUT: ---
+	*/
+	void GenerateChildOctant(Octant a_oParent);
+	/*
+	USAGE: will check if this rigid body is contained
+	ARGUMENTS:
+	Octant a_octant -> the octant to check
+	MyRigidBody* a_rigidBody -> the rigid body to check
+	OUTPUT: does the provided octant contain the provided rigid body?
+	*/
+	bool ContainedInOctant(Octant a_octant, MyRigidBody* a_rigidBody);
+	/*
+	USAGE: will display the current octree setup associated with this entity manager using wireframe cubes
+	ARGUMENTS:
+	MeshManager* a_pMeshManager -> the mesh manager to add the wireframe cube representations to
+	uint a_uOctantToDisplay -> the octant number to display, if < 0 will display all
+	OUTPUT: ---
+	*/
+	void DisplayOctree(MeshManager* a_pMeshManager, uint a_uOctantToDisplay = -1);
+	/*
+	USAGE: will clear current octant associations, regenerate octants, and then regenerate octant associations
+	ARGUMENTS: uint a_uOctantLevels -> count of the maximum number of octant depth levels to generate
+	OUTPUT: ---
+	*/
+	void UpdateOctantsAndDimensions(uint a_uOctantLevels);
 
 	/*
 	USAGE: applies a force to the specified object
@@ -364,6 +439,10 @@ private:
 	Output: ---
 	*/
 	void Init(void);
+
+	// Octant Related members
+	uint m_uOctantCount = 1; // Counter of the current number of octants
+	std::vector<Octant> m_vOctants = std::vector<Octant>(); // Vector of the Octants currently in use
 };//class
 
 } //namespace Simplex

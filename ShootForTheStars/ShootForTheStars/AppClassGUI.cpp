@@ -38,10 +38,17 @@ void Application::DrawGUI(void)
 			ImGui::TextColored(v4Color, m_sProgrammer.c_str());
 			ImGui::Text("FrameRate: %.2f [FPS] -> %.3f [ms/frame]\n",
 				ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
+			ImGui::Text("Levels in Octree: %d\n", m_uOctantLevels);
 			ImGui::Separator();
 			ImGui::Text("Controls:\n");
 			ImGui::Text("	WASD: Movement\n");
 			ImGui::Text("	Left Click: Shoot Arrow\n");
+			ImGui::Separator();
+			ImGui::Text(" PageUp: Increment Octant display\n");
+			ImGui::Text(" PageDw: Decrement Octant display\n");
+			ImGui::Separator();
+			ImGui::Text("	  -: Increment Octree subdivision\n");
+			ImGui::Text("	  +: Decrement Octree subdivision\n");
 			/*ImGui::Text("	 F1: Perspective\n");
 			ImGui::Text("	 F2: Orthographic X\n");
 			ImGui::Text("	 F3: Orthographic Y\n");
