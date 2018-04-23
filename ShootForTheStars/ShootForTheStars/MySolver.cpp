@@ -51,6 +51,9 @@ float MySolver::GetMass(void) { return m_fMass; }
 void MySolver::SetFriction(float a_fFriction) { m_fFriction = a_fFriction; }
 float MySolver::GetFriction(void) { return m_fFriction; }
 
+void MySolver::SetGravity(float a_fGravity) { m_fGravity = a_fGravity; }
+float MySolver::GetGravity(void) { return m_fGravity; }
+
 //Methods
 void MySolver::ApplyFriction(float a_fFriction)
 {
@@ -90,7 +93,7 @@ vector3 RoundSmallVelocity(vector3 a_v3Velocity, float minVelocity = 0.01f)
 }
 void MySolver::Update(void)
 {
-	ApplyForce(vector3(0.0f, -0.035f, 0.0f));
+	ApplyForce(vector3(0.0f, m_fGravity, 0.0f));
 
 	m_v3Velocity += m_v3Acceleration;
 	

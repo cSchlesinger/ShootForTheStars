@@ -59,6 +59,19 @@ float Simplex::MyEntity::GetFriction(void)
 	return 0.1f;
 }
 
+void Simplex::MyEntity::SetGravity(float a_fGravity)
+{
+	if (m_pSolver)
+		m_pSolver->SetGravity(a_fGravity);
+}
+
+float Simplex::MyEntity::GetGravity(void)
+{
+	if (m_pSolver != nullptr)
+		return m_pSolver->GetGravity();
+	return 0.1f;
+}
+
 //  MyEntity
 void Simplex::MyEntity::Init(void)
 {

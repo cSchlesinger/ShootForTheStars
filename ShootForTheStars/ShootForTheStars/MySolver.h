@@ -17,6 +17,7 @@ class MySolver
 	vector3 m_v3Velocity = ZERO_V3; //Velocity of the MySolver
 	float m_fMass = 1.0f; //Mass of the solver
 	float m_fFriction = 0.1f; //Power of the friction to be applied to the object
+	float m_fGravity = -0.035f; //Force of gravity
 public:
 	/*
 	USAGE: Constructor
@@ -100,6 +101,10 @@ public:
 	OUTPUT: friction of the object
 	*/
 	float GetFriction(void);
+
+	void SetGravity(float a_fGravity);
+
+	float GetGravity(void);
 
 	/*
 	USAGE: Applies friction to the movement

@@ -806,6 +806,32 @@ void Simplex::MyEntityManager::SetFriction(float a_fFriction, uint a_uIndex)
 
 	return;
 }
+void Simplex::MyEntityManager::SetGravity(float a_fGravity, String a_sUniqueID)
+{
+	//Get the entity
+	MyEntity* pTemp = MyEntity::GetEntity(a_sUniqueID);
+	//if the entity does not exists return
+	if (pTemp)
+	{
+		pTemp->SetGravity(a_fGravity);
+	}
+	return;
+}
+void Simplex::MyEntityManager::SetGravity(float a_fGravity, uint a_uIndex)
+{
+	//if the list is empty return
+	if (m_uEntityCount == 0)
+		return;
+
+	//if the index is larger than the number of entries we are asking for the last one
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	m_mEntityArray[a_uIndex]->SetGravity(a_fGravity);
+
+	return;
+}
+
 void Simplex::MyEntityManager::UsePhysicsSolver(bool a_bUse, String a_sUniqueID)
 {
 	//Get the entity

@@ -269,6 +269,22 @@ public:
 	float GetFriction(void);
 
 	/*
+	USAGE: Sets the gravity of the solver
+	ARGUMENTS: float a_fGravity -> gravity to set
+	OUTPUT: ---
+	*/
+
+	void SetGravity(float a_fGravity);
+
+	/*
+	USAGE: Gets gravity of the solver
+	ARGUMENTS: ---
+	OUTPUT: gravity of the object
+	*/
+
+	float GetGravity(void);
+
+	/*
 	USAGE: Updates the MyEntity
 	ARGUMENTS: ---
 	OUTPUT: ---

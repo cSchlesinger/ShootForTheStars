@@ -386,6 +386,8 @@ public:
 	OUTPUT: ---
 	*/
 	void SetFriction(float a_fFriction, uint a_uIndex = -1);
+	void SetGravity(float a_fGravity, String a_sUniqueID);
+	void SetGravity(float a_fGravity, uint a_uIndex);
 	/*
 	USAGE: Sets the using physics solver flag for the specified object
 	ARGUMENTS:
