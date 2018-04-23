@@ -97,7 +97,7 @@ void Application::Display(void)
 	m_pMeshMngr->AddPlaneToRenderList(m4Scale, m_v3FloorColor);
 
 	// draw a skybox
-	m_pMeshMngr->AddSkyboxToRenderList();
+	m_pMeshMngr->AddSkyboxToRenderList("Skybox_04.png");
 
 	//render list call
 	m_uRenderCallCount = m_pMeshMngr->Render();
