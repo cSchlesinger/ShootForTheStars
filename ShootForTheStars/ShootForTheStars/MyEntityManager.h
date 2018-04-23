@@ -27,6 +27,7 @@ public:
 		vector3 m_v3Min = vector3(0.0f); // Minimum point of the octant
 		vector3 m_v3Max = vector3(0.0f); // Maximum point of the octant
 		bool m_bIsEndNode; // Indicates wether this is an end node in the octree
+		//smelly boi dkjafbgladfj'gakdf
 	};
 
 	/*
